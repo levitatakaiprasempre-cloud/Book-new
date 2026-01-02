@@ -1,0 +1,457 @@
+# Book-new
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR.HORROR - I'M NOT HUMAN | Leitura Online</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0a0a0a;
+            --secondary-dark: #1a1a1a;
+            --accent-red: #8b0000;
+            --accent-blood: #dc143c;
+            --text-light: #e0e0e0;
+            --text-dim: #a0a0a0;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+            color: var(--text-light);
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 2rem 0;
+            border-bottom: 3px solid var(--accent-red);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--accent-blood);
+            text-shadow: 0 0 20px rgba(220, 20, 60, 0.5);
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--secondary-dark);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--accent-red);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            background: var(--accent-red);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent-blood);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 20, 60, 0.4);
+        }
+
+        .nav-btn.active {
+            background: var(--accent-blood);
+            box-shadow: 0 0 15px rgba(220, 20, 60, 0.6);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            min-height: calc(100vh - 300px);
+        }
+
+        /* Home Section */
+        .home-section {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .book-cover {
+            width: 300px;
+            height: 450px;
+            margin: 2rem auto;
+            background: linear-gradient(145deg, var(--accent-red), #000);
+            border: 3px solid var(--accent-blood);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .book-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="8" fill="rgba(255,255,255,0.1)">HORROR</text></svg>');
+            opacity: 0.1;
+        }
+
+        .book-cover-text {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .synopsis {
+            background: rgba(26, 26, 26, 0.8);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 5px solid var(--accent-red);
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .synopsis h2 {
+            color: var(--accent-blood);
+            margin-bottom: 1rem;
+        }
+
+        /* Chapter Section */
+        .chapter-section {
+            display: none;
+        }
+
+        .chapter-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chapter-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-red);
+        }
+
+        .chapter-header h2 {
+            font-size: 2.5rem;
+            color: var(--accent-blood);
+            margin-bottom: 0.5rem;
+        }
+
+        .chapter-header h3 {
+            font-size: 1.8rem;
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        .chapter-content {
+            background: rgba(26, 26, 26, 0.6);
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .chapter-content p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            font-size: 1.1rem;
+        }
+
+        .chapter-content p:first-letter {
+            font-size: 3rem;
+            font-weight: bold;
+            float: left;
+            line-height: 1;
+            margin-right: 0.5rem;
+            color: var(--accent-blood);
+        }
+
+        /* Navigation Buttons */
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--accent-red);
+        }
+
+        .chapter-nav button {
+            background: var(--secondary-dark);
+            color: var(--text-light);
+            border: 2px solid var(--accent-red);
+            padding: 1rem 2rem;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .chapter-nav button:hover:not(:disabled) {
+            background: var(--accent-red);
+            transform: translateX(5px);
+        }
+
+        .chapter-nav button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 3px solid var(--accent-red);
+            margin-top: 5rem;
+        }
+
+        footer p {
+            color: var(--text-dim);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .chapter-content {
+                padding: 1.5rem;
+            }
+
+            .book-cover {
+                width: 250px;
+                height: 375px;
+            }
+
+            .nav-content {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--text-dim);
+            border-radius: 50%;
+            border-top-color: var(--accent-blood);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>MR.HORROR</h1>
+            <p class="subtitle">I'M NOT HUMAN - PART 1 (HATE)</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-content">
+            <button class="nav-btn active" onclick="showSection('home')">📖 Início</button>
+            <button class="nav-btn" onclick="showSection('chapter1')">Capítulo 1</button>
+            <button class="nav-btn" onclick="showSection('chapter2')">Capítulo 2</button>
+            <button class="nav-btn" onclick="showSection('chapter3')">Capítulo 3</button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="home-section active">
+            <div class="book-cover">
+                <div class="book-cover-text">
+                    MR.HORROR<br>
+                    <small style="font-size: 1rem;">I'M NOT HUMAN</small>
+                </div>
+            </div>
+            
+            <div class="synopsis">
+                <h2>📚 Sobre o Livro</h2>
+                <p><strong>Caelum, Maine - Outubro de 2009</strong></p>
+                <p>Em uma pequena cidade aparentemente tranquila, a família Blackwell vive um pesadelo silencioso. Luke, de apenas 9 anos, está preso em um estado catatônico profundo há cinco anos. Ele não fala, não responde, não reconhece seus pais.</p>
+                <p>Sua única ação é ficar sentado diante da janela de seu quarto, observando fixamente seu próprio reflexo no vidro.</p>
+                <p>Sarah e Tom Blackwell tentaram tudo - médicos, especialistas, terapias - mas nada funcionou. A esperança se transformou em rotina vazia, e o amor em desespero silencioso.</p>
+                <p>Quando o Dr. Alistair Finch, um novo especialista, chega para examinar Luke, ele não imagina que está prestes a descobrir algo que desafia toda a lógica médica e científica.</p>
+                <p><strong>Porque às vezes, o que olha de volta do outro lado do vidro... não é você.</strong></p>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <button class="nav-btn" onclick="showSection('chapter1')" style="font-size: 1.2rem; padding: 1rem 3rem;">
+                    Começar a Ler →
+                </button>
+            </div>
+        </section>
+
+        <!-- Chapter 1 -->
+        <section id="chapter1" class="chapter-section">
+            <div class="chapter-header">
+                <h2>CAPÍTULO 1</h2>
+                <h3>THE WINDOW</h3>
+            </div>
+            
+            <div class="chapter-content">
+                <p>October in Caelum, Maine, had a particular smell. It was the smell of fulfilled promises and an inevitable end. It smelled of wet oak leaves rotting sweetly on the asphalt of the quiet streets, the smoke of chimneys beginning their annual work against the creeping cold from the north, and if you took a deep breath near the Penobscot River that bisected the town, you could smell cold water and river rocks. It was a homey smell. For most, at least.</p>
+
+                <p>The year was 2009. The great recession that was strangling the rest of the country seemed like just a distant news story on cable TV, something that happened to other people in other cities. Caelum wasn't rich, far from it, but she was stable. The paper mill was still operating, with its three punctual shifts, and the stores on Main Street, although some had an extra layer of dust on their windows, remained open.</p>
+
+                <p>People shopped at Caelum Hardware, ate breakfast at The Blue Jay Diner, and rented movies (DVDs' last gasps before streaming devoured everything) at the Blockbuster that stubbornly refused to die in the corner of the square. Life had a rhythm, a simple and predictable melody. A lullaby.</p>
+
+                <p>In the neighborhood known as Night Stars, named not for some spectacular celestial vision but for a developer with more poetry than common sense in the 1970s, the houses were mostly the same. Two-story ranch or colonial models with manicured lawns and white picket fences that needed a fresh coat of paint every couple of summers. It was the kind of place where kids rode their bikes until the sun went down and the biggest crime of the year was the theft of a garden gnome.</p>
+
+                <p>At 112 Maple Drive, a two-story colonial with faded blue shutters, the lullaby had long since stopped. In its place, a dense and heavy silence reigned, a silence that had teeth.</p>
+
+                <p>Sarah Blackwell felt this silence as soon as she opened her eyes at 6:15 in the morning. He was a constant companion, more present than her own husband sleeping beside her. The sound of Tom's gentle snoring was a welcome interruption, proof that not everything in his life had gone mute.</p>
+
+                <p>She stood up, her bare feet meeting the cold wooden floor, and pulled on the threadbare flannel robe that hung on the back of the door. The routine was an anchor. Sarah clung to her with the strength of a shipwrecked man clinging to a piece of wood.</p>
+
+                <p><em>[Continue lendo para descobrir o que acontece com Luke e a família Blackwell...]</em></p>
+            </div>
+
+            <div class="chapter-nav">
+                <button disabled>← Anterior</button>
+                <button onclick="showSection('chapter2')">Próximo →</button>
+            </div>
+        </section>
+
+        <!-- Chapter 2 (Template) -->
+        <section id="chapter2" class="chapter-section">
+            <div class="chapter-header">
+                <h2>CAPÍTULO 2</h2>
+                <h3>EM BREVE</h3>
+            </div>
+            
+            <div class="chapter-content">
+                <p style="text-align: center; padding: 5rem 0; color: var(--text-dim);">
+                    Este capítulo está sendo preparado...<br>
+                    <span class="loading" style="margin-top: 2rem;"></span>
+                </p>
+            </div>
+
+            <div class="chapter-nav">
+                <button onclick="showSection('chapter1')">← Anterior</button>
+                <button onclick="showSection('chapter3')">Próximo →</button>
+            </div>
+        </section>
+
+        <!-- Chapter 3 (Template) -->
+        <section id="chapter3" class="chapter-section">
+            <div class="chapter-header">
+                <h2>CAPÍTULO 3</h2>
+                <h3>EM BREVE</h3>
+            </div>
+            
+            <div class="chapter-content">
+                <p style="text-align: center; padding: 5rem 0; color: var(--text-dim);">
+                    Este capítulo está sendo preparado...<br>
+                    <span class="loading" style="margin-top: 2rem;"></span>
+                </p>
+            </div>
+
+            <div class="chapter-nav">
+                <button onclick="showSection('chapter2')">← Anterior</button>
+                <button disabled>Próximo →</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 MR.HORROR - I'M NOT HUMAN | Todos os direitos reservados</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Uma história de terror psicológico</p>
+    </footer>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('main > section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Update nav buttons
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Scroll progress indicator (optional enhancement)
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            
+            // You can add a progress bar here if desired
+        });
+    </script>
+</body>
+</html>
